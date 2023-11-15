@@ -1,3 +1,8 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: lightblue;
+}
+
 .app {
   display: flex;
   justify-content: center;
@@ -5,4 +10,8 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+}
+h1 {
+  font-size: 3rem;
+  padding-bottom: 2rem;
 }

@@ -1,9 +1,11 @@
 import { useState, useRef } from 'react';
 import './Timer.css';
+import Modal from '../Modal';
 
 export default function Timer() {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
-  const [time, setTime] = useState(1 * 60);
+  const [time, setTime] = useState(1 * 5);
   const intervalRef = useRef(null);
 
   function startTimer() {
@@ -34,6 +36,10 @@ export default function Timer() {
     setIsRunning(false);
   }
 
+  const openModal = () => {
+    setIsOpenModal(true);
+  };
+
   const minutes = Math.floor(time / 60)
     .toString()
     .padStart(2, '0');
@@ -42,17 +48,21 @@ export default function Timer() {
 
   return (
     <div>
-      <div className="timer">
+      <div className="timer" onClick={openModal}>
         <span>{minutes}</span>
         <span>:</span>
         <span>{seconds}</span>
       </div>
-      {isRunning ? (
-        <button onClick={stopTimer}>Pause</button>
-      ) : (
+      {!isRunning ? (
         <button onClick={startTimer}>Start</button>
+      ) : (
+        <button onClick={stopTimer}>Pause</button>
       )}
       <button onClick={resetTimer}>Reset</button>
+
+      {isOpenModal && (
+        <Modal setIsOpenModal={setIsOpenModal} setTime={setTime} />
+      )}
     </div>
   );
 }
